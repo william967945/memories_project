@@ -21,15 +21,16 @@ const Post = ({ post, setCurrentId }) => {
                 <Button
                     style={{ color: 'white' }}
                     size="small"
-                    onClick={() => setCurrentId(post._id) }>
+                    onClick={() => setCurrentId(post._id)}>
                     <MoreHorizIcon fontSize="medium" />
                 </Button>
             </div>
             <div className={classes.details}>
                 <Typography variant="body2" color="textSecondary">{post.tags.map((tag) => `#${tag} `)}</Typography>
             </div>
+            <Typography className={classes.title} variant="h5" gutterbuttom="true">{post.title}</Typography>
             <CardContent>
-                <Typography className={classes.title} variant="h5" gutterbuttom="true">{post.message}</Typography>
+                <Typography variant="body2" gutterbuttom="true">{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <Button size="small" color="primary" onClick={() => { }}>
