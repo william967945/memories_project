@@ -7,5 +7,6 @@ Mongo DB
 Express
 
 React-JS
+    statemanagement: redux
 
 Node.js     
