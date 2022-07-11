@@ -2,27 +2,41 @@ import { React, useState } from 'react'
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import * as jose from 'jose';
+
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input';
+import { signIn, signUp } from '../../actions/auth';
 
+const initialState = { firstName: '', lastName: '', email: '', password: '', comfirmPassword: '' };
 
 const Auth = () => {
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignUp] = useState(false);
+    const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        if (isSignup) {
+            // sign up
+            dispatch(signUp(formData, history));
+        } else {
+            // sign in
+            dispatch(signIn(formData, history));
+        }
     };
 
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const switchMode = () => {
@@ -56,7 +70,8 @@ const Auth = () => {
 
         try {
             dispatch({ type: 'AUTH', data: { result, token } });
-            //console.log(res);
+            
+            history.push('/');
         } catch (error) {
             console.log(error);
         }
@@ -81,7 +96,7 @@ const Auth = () => {
                             isSignup && (
                                 <>
                                     <Input name="firstName" label="First Name" handleChange={handleChange} autocomplete half />
-                                    <Input name="LastName" label="Last Name" handleChange={handleChange} half />
+                                    <Input name="lastName" label="Last Name" handleChange={handleChange} half />
                                 </>
                             )}
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email" />

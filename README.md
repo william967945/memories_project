@@ -7,6 +7,9 @@ Mongo DB
 Express
 
 React-JS
-    statemanagement: redux
+    
+statemanagement: redux
 
 Node.js     
+
+Google Identity Services
