@@ -25,7 +25,7 @@ const Auth = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         if (isSignup) {
             // sign up
             dispatch(signUp(formData, history));
@@ -42,7 +42,7 @@ const Auth = () => {
     const switchMode = () => {
         // switch from between signin and sign up
         setIsSignUp((prevIsSignUp) => !prevIsSignUp);
-        handleShowPassword(false);
+        setShowPassword(false);
     };
 
     const decodeJwtResponse = async (credential) => {
@@ -66,11 +66,14 @@ const Auth = () => {
             .catch((error) => console.log(error.message));
 
         const result = payload; // profile
+        
+        console.log(result);
+        
         const token = res?.credential; // token
 
         try {
             dispatch({ type: 'AUTH', data: { result, token } });
-            
+
             history.push('/');
         } catch (error) {
             console.log(error);
@@ -95,12 +98,12 @@ const Auth = () => {
                         {
                             isSignup && (
                                 <>
-                                    <Input name="firstName" label="First Name" handleChange={handleChange} autocomplete half />
+                                    <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
                                     <Input name="lastName" label="Last Name" handleChange={handleChange} half />
                                 </>
                             )}
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                         {isSignup && <Input name="comfirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
                     </Grid>
                     <Button type="submit" fullWidth variant='contained' color='primary' className={classes.submit}>
