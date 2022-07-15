@@ -11,8 +11,6 @@ const Posts = ({ setCurrentId }) => {
   const posts = useSelector((state) => state.posts);
   const classes = useStyles();
 
-  console.log(posts);
-
   return (
     !posts.length ? <CircularProgress /> : (
       <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
@@ -24,6 +22,6 @@ const Posts = ({ setCurrentId }) => {
       </Grid>
     )
   );
-}
+};
 
 export default Posts;

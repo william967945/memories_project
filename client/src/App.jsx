@@ -8,15 +8,15 @@ import Home from './Components/Home/Home';
 import Auth from "./Components/Auth/Auth";
 
 const App = () => {
-  const user = () => JSON.parse(localStorage.getItem('profile'));
+  const user = JSON.parse(localStorage.getItem('profile'));
   
   return (
     <BrowserRouter>
       <Container maxWidth="xl">
         <Navbar />
         <Switch>
-          <Route path="/" exact component={() => <Redirect to="/posts"/>} />
-          <Route path="/posts" exact component={Home} />
+          <Route path="/" exact component={() => <Redirect to="/posts"/>} /> // dcard 首頁
+          <Route path="/posts" exact component={Home} /> // dcard文章
           <Route path="/posts/search" exact component={Home} />
           <Route path="/posts/:id" component={PostDetails} /> {/* ':' means dynamic */}
           <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/posts" />)} />
